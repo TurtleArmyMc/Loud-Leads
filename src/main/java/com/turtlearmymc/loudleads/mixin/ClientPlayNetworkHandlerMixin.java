@@ -43,7 +43,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
             if (!(currentHoldingEntity instanceof LeadKnotEntity)) {
                 // Detach from player sound
-                double x = attachedEntity.x, y = attachedEntity.y, z = attachedEntity.z;
+                double x = attachedEntity.getX(), y = attachedEntity.getY(), z = attachedEntity.getZ();
                 world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_BREAK, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             } else {
                 if (world.getLevelProperties().getTime() != lastTime) {
@@ -52,18 +52,18 @@ public abstract class ClientPlayNetworkHandlerMixin {
                 }
                 if (!leadKnotsDetatchedFromThisTickIds.contains(currentHoldingEntity.getEntityId())) {
                     // Breaking fence lead sound
-                    double x = currentHoldingEntity.x, y = currentHoldingEntity.y, z = currentHoldingEntity.z;
+                    double x = currentHoldingEntity.getX(), y = currentHoldingEntity.getY(), z = currentHoldingEntity.getZ();
                     world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_BREAK, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                     leadKnotsDetatchedFromThisTickIds.add(currentHoldingEntity.getEntityId());
                 }
             }
         } else if (!(newHoldingEntity instanceof LeadKnotEntity)) {
             // Attach to player sound
-            double x = attachedEntity.x, y = attachedEntity.y, z = attachedEntity.z;
+            double x = attachedEntity.getX(), y = attachedEntity.getY(), z = attachedEntity.getZ();
             world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_PLACE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
         } else if (newHoldingEntity.age != 0) {
             // Attach to pre-existing fence lead sound
-            double x = newHoldingEntity.x, y = newHoldingEntity.y, z = newHoldingEntity.z;
+            double x = newHoldingEntity.getX(), y = newHoldingEntity.getY(), z = newHoldingEntity.getZ();
             world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_PLACE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
         }
     }
