@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.turtlearmymc.loudleads.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [],
+  "client": [
+    "ClientPlayNetworkHandlerMixin",
+    "LeadKnotEntityMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
