@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.entity.decoration.LeadKnotEntity;
+import net.minecraft.entity.decoration.LeashKnotEntity;
 
-@Mixin(LeadKnotEntity.class)
-public abstract class LeadKnotEntityMixin {
+@Mixin(LeashKnotEntity.class)
+public abstract class LeashKnotEntityMixin {
     // Mutes default lead knot breaking sound when punched/fence is destroyed
     // Only works on the integrated server
 
@@ -19,23 +19,23 @@ public abstract class LeadKnotEntityMixin {
 
     @Inject(method="onBreak", at = @At(
         value = "INVOKE",
-        target = "Lnet/minecraft/entity/decoration/LeadKnotEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"
+        target = "Lnet/minecraft/entity/decoration/LeashKnotEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"
         )
     )
     private void silenceBeforeBreakSound(CallbackInfo ci) {
-        LeadKnotEntity lead = ((LeadKnotEntity) (Object) this);
+        LeashKnotEntity lead = ((LeashKnotEntity) (Object) this);
         leadsSilence.put(lead.getEntityId(), lead.isSilent());
         lead.setSilent(true);
     }
 
     @Inject(method="onBreak", at = @At(
         value = "INVOKE",
-        target = "Lnet/minecraft/entity/decoration/LeadKnotEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V",
+        target = "Lnet/minecraft/entity/decoration/LeashKnotEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V",
         shift = At.Shift.AFTER
         )
     )
     private void resetSilenceAfterBreakSound(CallbackInfo ci) {
-        LeadKnotEntity lead = ((LeadKnotEntity) (Object) this);
+        LeashKnotEntity lead = ((LeashKnotEntity) (Object) this);
         lead.setSilent(leadsSilence.get(lead.getEntityId()));
         leadsSilence.remove(lead.getEntityId());
     }

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.decoration.LeadKnotEntity;
+import net.minecraft.entity.decoration.LeashKnotEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityAttachS2CPacket;
@@ -41,7 +41,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
             // Detaching sounds
             Entity currentHoldingEntity = attachedEntity.getHoldingEntity();
 
-            if (!(currentHoldingEntity instanceof LeadKnotEntity)) {
+            if (!(currentHoldingEntity instanceof LeashKnotEntity)) {
                 // Detach from player sound
                 double x = attachedEntity.getX(), y = attachedEntity.getY(), z = attachedEntity.getZ();
                 world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_BREAK, SoundCategory.NEUTRAL, 1.0F, 1.0F);
@@ -57,7 +57,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
                     leadKnotsDetatchedFromThisTickIds.add(currentHoldingEntity.getEntityId());
                 }
             }
-        } else if (!(newHoldingEntity instanceof LeadKnotEntity)) {
+        } else if (!(newHoldingEntity instanceof LeashKnotEntity)) {
             // Attach to player sound
             double x = attachedEntity.getX(), y = attachedEntity.getY(), z = attachedEntity.getZ();
             world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_PLACE, SoundCategory.NEUTRAL, 1.0F, 1.0F);

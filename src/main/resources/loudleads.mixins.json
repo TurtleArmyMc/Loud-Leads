@@ -5,7 +5,7 @@
   "mixins": [],
   "client": [
     "ClientPlayNetworkHandlerMixin",
-    "LeadKnotEntityMixin"
+    "LeashKnotEntityMixin"
   ],
   "server": [],
   "injectors": {
