@@ -15,7 +15,7 @@ public abstract class LeashKnotEntityMixin {
     // Mutes default lead knot breaking sound when punched/fence is destroyed
     // Only works on the integrated server
 
-    private Map<Integer, Boolean> leadsSilence = new HashMap<Integer, Boolean>();
+    final private Map<Integer, Boolean> leadsSilence = new HashMap<Integer, Boolean>();
 
     @Inject(method="onBreak", at = @At(
         value = "INVOKE",
@@ -24,7 +24,7 @@ public abstract class LeashKnotEntityMixin {
     )
     private void silenceBeforeBreakSound(CallbackInfo ci) {
         LeashKnotEntity lead = ((LeashKnotEntity) (Object) this);
-        leadsSilence.put(lead.getEntityId(), lead.isSilent());
+        leadsSilence.put(lead.getId(), lead.isSilent());
         lead.setSilent(true);
     }
 
@@ -36,7 +36,7 @@ public abstract class LeashKnotEntityMixin {
     )
     private void resetSilenceAfterBreakSound(CallbackInfo ci) {
         LeashKnotEntity lead = ((LeashKnotEntity) (Object) this);
-        lead.setSilent(leadsSilence.get(lead.getEntityId()));
-        leadsSilence.remove(lead.getEntityId());
+        lead.setSilent(leadsSilence.get(lead.getId()));
+        leadsSilence.remove(lead.getId());
     }
 }

@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ClientPlayNetworkHandlerMixin {
     private long lastTime = -1;
-    private List<Integer> leadKnotsDetatchedFromThisTickIds = new ArrayList<Integer>();
+    final private List<Integer> leadKnotsDetatchedFromThisTickIds = new ArrayList<Integer>();
 
     @Inject(method="onEntityAttach", at = @At(
         value = "INVOKE",
@@ -50,11 +50,11 @@ public abstract class ClientPlayNetworkHandlerMixin {
                     lastTime = world.getLevelProperties().getTime();
                     leadKnotsDetatchedFromThisTickIds.clear();
                 }
-                if (!leadKnotsDetatchedFromThisTickIds.contains(currentHoldingEntity.getEntityId())) {
+                if (!leadKnotsDetatchedFromThisTickIds.contains(currentHoldingEntity.getId())) {
                     // Breaking fence lead sound
                     double x = currentHoldingEntity.getX(), y = currentHoldingEntity.getY(), z = currentHoldingEntity.getZ();
                     world.playSound(p, x, y, z, SoundEvents.ENTITY_LEASH_KNOT_BREAK, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                    leadKnotsDetatchedFromThisTickIds.add(currentHoldingEntity.getEntityId());
+                    leadKnotsDetatchedFromThisTickIds.add(currentHoldingEntity.getId());
                 }
             }
         } else if (!(newHoldingEntity instanceof LeashKnotEntity)) {
